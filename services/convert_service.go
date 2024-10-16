@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"go-api-word-to-pdf/common"
+	"go-api-word-to-pdf/configuration"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -14,13 +15,18 @@ func ConvertWordToPdf(osType common.OperatingSystemType, inputFileFullPath, outp
 
 	var cmd *exec.Cmd
 
+	config, err := configuration.GetConfig()
+	if err != nil {
+		return nil, fmt.Errorf(`read configuration error: %s`, err)
+	}
+
 	switch osType {
 	case common.Windows:
 		fmt.Println("Running on Windows")
-		cmd = exec.Command("C:\\Program Files\\LibreOffice\\program\\soffice.exe", "--headless", "--convert-to", "pdf", inputFileFullPath, "--outdir", outputFilePath)
+		cmd = exec.Command(config.LibreofficeConfig.WindowsPath, "--headless", "--convert-to", "pdf", inputFileFullPath, "--outdir", outputFilePath)
 	case common.Linux:
 		fmt.Println("Running on Linux")
-		cmd = exec.Command("/usr/bin/libreoffice", "--headless", "--convert-to", "pdf", inputFileFullPath, "--outdir", outputFilePath)
+		cmd = exec.Command(config.LibreofficeConfig.LinuxPath, "--headless", "--convert-to", "pdf", inputFileFullPath, "--outdir", outputFilePath)
 	case common.MacOS:
 		fmt.Println("Running on macOS")
 	default:
@@ -61,7 +67,6 @@ func ConvertWordToPdf(osType common.OperatingSystemType, inputFileFullPath, outp
 	err = os.Remove(pdfFile)
 	if err != nil {
 		fmt.Printf("Error deleting file: %v\n", err)
-		return
 	}
 
 	// Return the PDF data as a byte array

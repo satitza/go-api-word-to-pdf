@@ -11,6 +11,10 @@ type AppConfiguration struct {
 		WordTempPath string `mapstructure:"word-temp-path"`
 		PdfTempPath  string `mapstructure:"pdf-temp-path"`
 	} `mapstructure:"convert-config"`
+	LibreofficeConfig struct {
+		WindowsPath string `mapstructure:"windows-path"`
+		LinuxPath   string `mapstructure:"linux-path"`
+	} `mapstructure:"libreoffice-config"`
 }
 
 var instance *AppConfiguration

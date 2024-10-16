@@ -3,3 +3,7 @@ port: 4444
 convert-config:
   word-temp-path: "/temp/word"
   pdf-temp-path: "/temp/pdf"
+
+libreoffice-config:
+  windows-path: "C:\\Program Files\\LibreOffice\\program\\soffice.exe"
+  linux-path: "/usr/bin/libreoffice"
