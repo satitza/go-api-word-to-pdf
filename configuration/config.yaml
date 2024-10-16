@@ -1,0 +1,5 @@
+port: 4444
+
+convert-config:
+  word-temp-path: "/temp/word"
+  pdf-temp-path: "/temp/pdf"
