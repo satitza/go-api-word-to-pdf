@@ -49,12 +49,10 @@ func AppConvertWordToPdfHandler(ctx *gin.Context) {
 		return
 	}
 
-	// TODO clear temp file
 	// Delete word temp file
 	err = os.Remove(inputTempFilePath)
 	if err != nil {
 		fmt.Printf("Error deleting file: %v\n", err)
-		return
 	}
 
 	ctx.Data(http.StatusOK, "application/pdf", byteArray)

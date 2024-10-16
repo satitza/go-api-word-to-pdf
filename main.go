@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-api-word-to-pdf/common"
 	"go-api-word-to-pdf/configuration"
+	"go-api-word-to-pdf/middleware"
 	"go-api-word-to-pdf/router"
 )
 
@@ -16,6 +17,7 @@ func main() {
 	}
 
 	r := gin.Default()
+	r.Use(middleware.LoggingMiddleware())
 
 	// initial all router
 	if len(router.AllAppRouter) > 0 {
@@ -35,7 +37,7 @@ func main() {
 		}
 	}
 
-	err = r.Run(":" + fmt.Sprintf("%d", config.Port))
+	err = r.Run(fmt.Sprintf(":%d", config.Port))
 	if err != nil {
 		return
 	}

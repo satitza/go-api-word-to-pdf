@@ -62,7 +62,6 @@ func ConvertWordToPdf(osType common.OperatingSystemType, inputFileFullPath, outp
 		return nil, fmt.Errorf("error reading the PDF file: %v", err)
 	}
 
-	// TODO clear temp file
 	// Delete pdf temp file
 	err = os.Remove(pdfFile)
 	if err != nil {
